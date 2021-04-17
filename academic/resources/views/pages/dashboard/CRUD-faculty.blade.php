@@ -1,9 +1,9 @@
 @extends('layouts.master')
-@section('title', 'MANAGER Topic')
+@section('title', 'MANAGER FACULTY')
 
 @section('icon-header', '')
-@section('title-header', 'MANAGER TOPIC')
-@section('describle-header', 'Mamager Topic alow create, update, delete')
+@section('title-header', 'MANAGER FACULTY')
+@section('describle-header', 'Mamager faculty alow create, update, delete')
 
 
 
@@ -20,10 +20,10 @@
                                         <div class="card-body"><h5 class="card-title">Describle</h5>
                                             <div id="exampleAccordionx" data-children=".xitem">
                                                 <div class="item ">
-                                                    <div data-parent="#exampleAccordion" id="collapseExample" class="collapse show"><p class="mb-3">Allows management of the Topic.</p></div>
+                                                    <div data-parent="#exampleAccordion" id="collapseExample" class="collapse show"><p class="mb-3">Allows management of the faculty.</p></div>
                                                 </div>
-                                                <button id="btn-add-new" class="mb-2 mr-2 btn btn-success"><b>+ Add New Topic   </b> </button>                                                
-                                                <button style="display:none" id="add-new" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target=".load-form">Add New Topic</button>
+                                                <button id="btn-add-new" class="mb-2 mr-2 btn btn-success"><b>+ Add New Faculty   </b> </button>                                                
+                                                <button style="display:none" id="add-new" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target=".load-form">Add New Faculty</button>
                                             </div>
                                         </div>
                                     </div>
@@ -34,7 +34,7 @@
                                     <div class="card-body"><h5 class="card-title">List Faculty</h5>
                                         <div>
                                             <ul class="list-group ">
-                                            @foreach($data_tp as $ls)
+                                            @foreach($data_fc as $ls)
                                             <button class="list-group-item-action list-group-item ">                                             
                                             <b>{{$ls['name']}}</b> ({{$ls['open_time']}} - {{$ls['close_time']}}) <div style=" float: right; ">
                                             
@@ -102,7 +102,7 @@
                                     $('#model-load').append(srt);
                                     //add new form delete
                                     $('#model-load').append(
-                                        '<form style="display:none" id="form-del" action="manager-topic-del" method="POST">'
+                                        '<form style="display:none" id="form-del" action="manager-faculty-del" method="POST">'
                                         +'{{csrf_field()}}'
                                         +'<input name="del" id="del-up" type="text" value=""/>'
                                         +'</form>'
@@ -141,7 +141,7 @@
                                         //edit title
                                         $('.modal-title').text('Add New');
                                         //replace propertit acrion form
-                                        $('#form-input').prop('action', 'manager-topic');
+                                        $('#form-input').prop('action', 'manager-faculty');
 
 
                                     });
@@ -164,7 +164,7 @@
                                         //edit title
                                         $('.modal-title').text('Edit');
                                         //replace propertit acrion form
-                                        $('#form-input').prop('action', 'manager-topic-edit');
+                                        $('#form-input').prop('action', 'manager-faculty-edit');
                                         
                                         //alert();
 

@@ -34,7 +34,7 @@
                                     <div class="card-body"><h5 class="card-title">List Faculty</h5>
                                         <div>
                                             <ul class="list-group ">
-                                            @foreach($data_tp as $ls)
+                                            @foreach($data_ac as $ls)
                                             <button class="list-group-item-action list-group-item ">                                             
                                             <b>{{$ls['name']}}</b> ({{$ls['open_time']}} - {{$ls['close_time']}}) <div style=" float: right; ">
                                             

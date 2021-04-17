@@ -2,8 +2,8 @@
 @section('title', 'MANAGER Topic')
 
 @section('icon-header', '')
-@section('title-header', 'MANAGER TOPIC')
-@section('describle-header', 'Mamager Topic alow create, update, delete')
+@section('title-header', 'CONTRIBUTION')
+@section('describle-header', '')
 
 
 
@@ -17,38 +17,63 @@
 <div class="col-md-5">
                                 
                                 <div class="main-card mb-3 card">
-                                        <div class="card-body"><h5 class="card-title">Describle</h5>
-                                            <div id="exampleAccordionx" data-children=".xitem">
-                                                <div class="item ">
-                                                    <div data-parent="#exampleAccordion" id="collapseExample" class="collapse show"><p class="mb-3">Allows management of the Topic.</p></div>
-                                                </div>
-                                                <button id="btn-add-new" class="mb-2 mr-2 btn btn-success"><b>+ Add New Topic   </b> </button>                                                
-                                                <button style="display:none" id="add-new" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target=".load-form">Add New Topic</button>
-                                            </div>
+                                        <div class="card-body"><h5 class="card-title">Contribution Infomation</h5>
+                                            <ul class="list-group">
+                                                <li class="justify-content-between list-group-item"><b>Title: </b>{{$contributions_data['name']}} </li>
+                                                <li class="justify-content-between list-group-item"><b>Description: </b>{{$contributions_data['description']}}</li>
+
+                                                <li class="justify-content-between list-group-item"><b>File Total: </b>{{$total_file}}</li>
+                                                <li class="justify-content-between list-group-item"><b>Upload by: </b>{{$user_ac}}</li>
+                                                <li class="justify-content-between list-group-item"><b>Date upload: </b>{{$contributions_data['create_date']}}</li>
+
+                                            </ul>
                                         </div>
                                     </div>
                             </div>
 
                             <div class="col-md-7">
+
+
+
+                          
                                 <div class="main-card mb-3 card">
-                                    <div class="card-body"><h5 class="card-title">List Faculty</h5>
+                                    
+                                    <div class="card-body"><h5 class="card-title">List File</h5>
                                         <div>
                                             <ul class="list-group ">
-                                            @foreach($data_tp as $ls)
+                                            @foreach($ls_file as $ls)
                                             <button class="list-group-item-action list-group-item ">                                             
-                                            <b>{{$ls['name']}}</b> ({{$ls['open_time']}} - {{$ls['close_time']}}) <div style=" float: right; ">
+                                            <i class="pe-7s-copy-file"style=" font-weight: bold; color: #505050; font-size: 18px; "> </i><a href="file-detail?file-id={{$ls['id']}}"><b class="file-name">{{$ls['name']}}</b></a> 
+                                            <div style=" float: right; ">
                                             
-                                            <input id="name-{{$ls['id']}}" type="text" style="display:none" value="{{$ls['name']}}"/>
-                                            <input id="open-{{$ls['id']}}" type="text" style="display:none" value="{{$ls['open_time']}}"/>
-                                            <input id="close-{{$ls['id']}}" type="text" style="display:none" value="{{$ls['close_time']}}"/>
+                                            <input id="name-" type="text" style="display:none" value=""/>
+                                            <input id="open-" type="text" style="display:none" value=""/>
+                                            <input id="close-" type="checkbox"  value=""/>
+                                            <a href="/academic/storage/app/public/upload/{{$user_upload}}/{{$ls['name']}}"><i class="fas fa-download"style=" font-weight: bold; color: blue; font-size: 15px; "> </i></a>
 
-                                            <i class="pe-7s-edit btn-option btn-edit" id="{{$ls['id']}}"> </i><i   class="pe-7s-trash btn-option btn-delete"  id="{{$ls['id']}}"> </i></div>
+                                        </div>
                                             </button>
                                             @endforeach
                                             </ul>
                                         </div>
                                     </div>
+
+
+                                    <div class="card-body">
+                                    <div style=" float: right; ">
+                                    <input id="close-" type="checkbox"  value=""/>
+                                    <i class="fas fa-download"style="font-weight: bold;color: #6f15ff;font-size: 18px;"> </i>
+
+                                    </div>
+                                        
+                                        
+                                    </div>
                                 </div>
+
+
+
+
+                                
                             </div>
 
 
@@ -65,48 +90,17 @@
                             </style>
                             <script>
                                 $(document).ready(function(){
-                                    var srt='<form id="form-input" action="manager-academic" method="POST">{{ csrf_field()}}<div class="modal fade load-form" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">'
-        +    '<div class="modal-dialog modal-sm">'
-        +        '<div class="modal-content">'
-        +            '<div class="modal-header">'
-        +                '<h5 class="modal-title" id="exampleModalLongTitle">Add academic</h5>'
-        +                '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
-        +                   ' <span aria-hidden="true">&times;</span>'
-        +                '</button>'
-        +            '</div>'
-        
-        +            '<div class="modal-body"><input name="id-course" type="text" value="" id="id-course" style="display:none"/>'
-        +           '<div class="position-relative form-group"><label for="" class="">Name</label><input name="name" id="name"  type="text" class="form-control"></div>'
-        +           '<div class="position-relative form-group"><label for="" class="">Open date</label><input name="open-day" id="open-day"  type="date" class="form-control"></div>'
-        +           '<div class="position-relative form-group"><label for="" class="">Close date</label><input name="close-day"  id="close-day" type="date" class="form-control"></div>'
-        
-        +           '<div class="position-relative form-group">'
-        +            '<label for="" class="">Course</label>'
-        +            '<select type="select" id="exampleCustomSelect" name="course-id" class="custom-select">' 
-        +            '@foreach($data_ac as $lsac)'
-        +            '<option value="{{$lsac["id"]}}">{{$lsac["name"]}}</option> '
-        +            '@endforeach'
-        +            '</select>'
-        +            '</div>'
-        +            '</div>'
-        +            '<div class="modal-footer">'
-        +                '<button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
-        +                '<button id="submit-create" type="button" class="btn btn-primary">Save changes</button>'
-        +            '</div>'
-        +        '</div>'
-        +    '</div>'
-        +'</div></form>';
-
+                                    $(function(){
+                                    $(".file-name").each(function(i){
+                                        len=$(this).text().length;
+                                        if(len>10)
+                                        {
+                                        $(this).text($(this).text().substr(0,50)+'...');
+                                        }
+                                    });       
+                                    });
      
-                                    //add new tag
-                                    $('#model-load').append(srt);
-                                    //add new form delete
-                                    $('#model-load').append(
-                                        '<form style="display:none" id="form-del" action="manager-topic-del" method="POST">'
-                                        +'{{csrf_field()}}'
-                                        +'<input name="del" id="del-up" type="text" value=""/>'
-                                        +'</form>'
-                                    );
+                                    
 
                                     //check validation 
                                     $('#submit-create').click(function(){
