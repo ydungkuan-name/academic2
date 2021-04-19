@@ -1,0 +1,64 @@
+	#file-upload-area form {
+    margin: 15px;
+}
+		
+.fileuploader {
+    display: block;
+    padding: 16px;
+    margin: 16px 0;
+    background: #fafbfd;
+    border-radius: 6px;
+}
+
+.fileuploader-items .fileuploader-items-list {
+    display: block;
+    margin: 0 -16px;
+    padding: 0;
+    list-style: none;
+}
+.fileuploader-thumbnails-input{
+margin: 16px 0 0 16px;
+position: relative;
+    display: inline-flex;
+  
+}
+#file-upload-area .fileuploader-thumbnails-input-inner{
+    padding: 4px;
+    width: 90px;
+    height: 120px;
+border-radius: 3px;
+background: #e6ebf4;
+    border: 2px dashed #92a7bf;
+    text-align: center;
+    font-size: 30px;
+    color: #90a0bc;
+    opacity: 0.9;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.file-delete-icon{
+    cursor: pointer;
+    float: right;
+    margin: 0 auto;
+    display: block;
+    width: 15px;
+    height: 15px;
+}
+#file-upload-area .file-image-collec{
+    width: 75px;
+    height: 75px;
+}
+
+
+#file-upload-area .file-image{
+    font-size: 12px;
+}
+#file-upload-area .file-name{
+    font-size: 13px;
+    margin: 2px;
+}

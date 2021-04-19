@@ -68,6 +68,10 @@
                             <a href="/academic/public/dash-board/manager-contribution" class="">
                                 <i class="metismenu-icon pe-7s-note2"></i>
                                 File contributions 
+                            </a> 
+                            <a href="/academic/public/dash-board/manager-all-file" class="">
+                                <i class="metismenu-icon pe-7s-note2"></i>
+                                File contributions  all
                             </a>                            
                         </li>
                     </ul>

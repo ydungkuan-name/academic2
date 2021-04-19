@@ -11,7 +11,29 @@ use App\Models\Contribution;
 
 
 
+function zip($files){
 
+
+    
+    $zip_file = 'invoices.zip'; // Name of our archive to download
+
+// Initializing PHP class
+$zip = new \ZipArchive();
+$zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+$invoice_file = 'app/public/upload/232ded9c-f727-475a-927c-41eddf3fe31b.jpg';
+
+// Adding file: second parameter is what will the path inside of the archive
+// So it will create another folder called "storage/" inside ZIP, and put the file there.
+$zip->addFile(storage_path($invoice_file), $invoice_file);
+$zip->close();
+
+// We return the file immediately after download
+return response()->download($zip_file);
+
+
+
+}
 
 
 
@@ -51,6 +73,10 @@ class ContributionsController extends Controller
 
     }
     function downloadAll(Request $request){
+        if($request->input('arr-id')==null){
+            return redirect()->back()-> with('jsAlert', 'please seclect to dowload');
+
+        }
         $arr_id = explode(",",$request->input('arr-id'));
         $array_file_id = array();
         
@@ -58,18 +84,45 @@ class ContributionsController extends Controller
         foreach($arr_id as $ls){
             $file_id = File::where('contribution_id', $ls)->get();
             foreach($file_id as $lsf){
-                array_push( $array_file_id, $lsf->path_folder.'/'.$lsf->name);
+                array_push( $array_file_id,$lsf->path_folder.'/'.$lsf->name);
             }
         }
-        $filezip =$array_file_id[0];
+        
+        
+
+
+
+
+        $zip_file = 'contribution.zip'; // Name of our archive to download
+
+        // Initializing PHP class
+        $zip = new \ZipArchive();
+        $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+        
+        $invoice_file = 'app/public/upload/232ded9c-f727-475a-927c-41eddf3fe31b.jpg';
+        
+        // Adding file: second parameter is what will the path inside of the archive
+        // So it will create another folder called "storage/" inside ZIP, and put the file there.
+        
         foreach($array_file_id as $ls_str){
-            $filezip = $filezip.'|'.$ls_str;
+            $zip->addFile(storage_path('app/public/upload/'.$ls_str), 'app/public/upload/'.$ls_str);            
         }
-        //$data_file = Contribution::all();
-        //zip('','hello');
-        //echo $data_file;
-        return redirect('http://dev.local/dowload/zip.php?download-all='.$filezip);
-        //return redirect();
-        return redirect()->back()-> with('jsAlert', count($array_file_id).$array_file_id[1]);
+        
+
+        $zip->close();
+        
+        // We return the file immediately after download
+        return response()->download($zip_file);
+
+
+
+
+
+
+
+
+
+
+
     }
 }

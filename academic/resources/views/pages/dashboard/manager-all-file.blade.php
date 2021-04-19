@@ -36,7 +36,7 @@
 
                                              
                                             </select></div>
-
+                                            <button id="buton-filter" class="mb-2 mr-2 btn btn-secondary">Filter </button>
                                         
                                         </div>
                                     </div>
@@ -166,9 +166,10 @@
                                     
                                 </div>
                             </div>
-                                <form id="form_download" action="manager-contribution-download-all" method="POST">
+                                <form style="display: none;" id="form_download" action="manager-contribution-download-all" method="POST">
                                 @csrf <!-- {{ csrf_field() }} -->
                                 <input name="arr-id" id="arr-id" type="text" value="">
+                                
                                 </form>
                             <script>
 
@@ -199,15 +200,27 @@
 
                                     $('#buton-filter').click(function() {                                   
                                        
-                                        if($('#sl-topic').val()!=null){
+                                        if($('#sl-topic').val()!=null && $('#sl-faculty').val()!=null){
+                                            var url = $(location).attr('href').split('?')[0];
+                                            window.location.href = url+'?topic-id='+$('#sl-topic').val()+'?faculty-id='+$('#sl-faculty').val();
+
+                                        } 
+                                        if($('#sl-topic').val()!=null && $('#sl-faculty').val()==null){
                                             var url = $(location).attr('href').split('?')[0];
                                             window.location.href = url+'?topic-id='+$('#sl-topic').val();
 
-                                        } 
-                                        
-                                        if($('#sl-topic').val() ==0){
-                                            window.location.href = $(location).attr('href').split('?')[0];
                                         }
+                                        if($('#sl-topic').val()==null && $('#sl-faculty').val()!=null){
+                                            var url = $(location).attr('href').split('?')[0];
+                                            window.location.href = url+'?faculty-id='+$('#sl-faculty').val();
+
+                                        }
+                                        if($('#sl-topic').val()==null && $('#sl-faculty').val()==null){
+                                            window.location.href = $(location).attr('href').split('?')[0];
+
+                                        }
+                                        
+                                    
 
                                     });
                                 });
